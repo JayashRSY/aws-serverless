@@ -1,0 +1,50 @@
+service: aws-node-project
+frameworkVersion: "3"
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+  
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  
+  createUser:
+    handler: src/handlers/user/createUser.handler
+    events:
+      - httpApi:
+          path: /createUser
+          method: POST
+
+  getUsers:
+    handler: src/handlers/user/getUsers.handler
+    events:
+      - httpApi:
+          path: /getUsers
+          method: GET
+
+  createTodo:
+    handler: src/handlers/todo/createTodo.handler
+    events:
+      - httpApi:
+          path: /createTodo
+          method: POST
+
+  getTodos:
+    handler: src/handlers/todo/getTodos.handler
+    events:
+      - httpApi:
+          path: /getTodos
+          method: GET
+
+  getTodoById:
+    handler: src/handlers/todo/getTodoById.handler
+    events:
+      - httpApi:
+          path: /getTodoById
+          method: POST
